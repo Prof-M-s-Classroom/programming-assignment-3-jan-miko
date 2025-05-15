@@ -24,9 +24,9 @@ public:
     }
 
     ~MinHeap() {
-        delete heapArray;
-        delete keyArray;
-        delete position;
+        delete[] heapArray;
+        delete[] keyArray;
+        delete[] position;
     }
 
     void insert(int vertex, int key);
@@ -42,7 +42,39 @@ private:
     int capacity;          // maximum amount of nodes allowed in heap
     int size;
 
-    void minHeapify(int idx);
+    void minHeapify(int idx) { //recursively maintains minheap property
+        //establish current index as the "minimum"
+        int minimum = idx;
+
+        //determine index of left child
+        int left = 2 * idx + 1;
+
+        //determine index of right child
+        int right = 2 * idx + 2;
+
+        //if the key of the left child is smaller than the parent/root node
+        if (left < size && keyArray[left] < keyArray[heapArray[minimum]])
+            minimum = left;
+
+        //if the key of the right child is smaller than the other two
+        if (right < size && keyArray[heapArray[right]] < keyArray[heapArray[minimum]])
+            minimum = right;
+
+        //if the parent node was not the root
+        if (minimum != idx) {
+
+            //swaps vertex positions
+            int temp = heapArray[idx];
+            heapArray[idx] = heapArray[minimum];
+            heapArray[minimum] = temp;
+
+            //updates position matrix
+            position[heapArray[idx]] = idx;
+            position[heapArray[minimum]] = minimum;
+
+            minHeapify(minimum);
+        }
+    }
 };
 
 #endif
