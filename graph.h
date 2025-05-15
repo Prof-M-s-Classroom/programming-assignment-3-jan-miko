@@ -36,16 +36,16 @@ public:
         // Must print MST edges and total weight
         int* parents = new int[numVertices]; //keeps track of current parent of nonvisited vertices
         MinHeap nonvisited = MinHeap(numVertices);
-        for (int i = 0; i < numVertices; i++) {
+        for (int i = 0; i < numVertices; i++) { //loops through each vertex
             int currVisit = nonvisited.extractMin();
 
-            for (int j = 0; j < numVertices; j++) {
+            for (int j = 0; j < numVertices; j++) { //updates each vertex's edge if smaller, new parent
                 if (nonvisited.decreaseKey(j, adjMatrix[currVisit][j]))
                     parents[j] = currVisit;
             }
         }
         int totalWeight = 0;
-        for (int i=1; i < numVertices; i++) {
+        for (int i=1; i < numVertices; i++) { //prints out each edge
             cout << "edge (" << parents[i] << " - " << i << ") weight: " << adjMatrix[i][parents[i]] << endl;
             totalWeight += adjMatrix[i][parents[i]];
         }
