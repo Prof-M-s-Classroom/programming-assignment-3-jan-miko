@@ -62,6 +62,7 @@ public:
         else
             return false;
     }
+
     bool isInMinHeap(int vertex) {
         return (heapArray[position[vertex]] == vertex) && !isEmpty();
     }
@@ -87,7 +88,7 @@ private:
         int right = 2 * idx + 2;
 
         //if the key of the left child is smaller than the parent/root node
-        if (left < size && keyArray[left] < keyArray[heapArray[minimum]])
+        if (left < size && keyArray[heapArray[left]] < keyArray[heapArray[minimum]])
             minimum = left;
 
         //if the key of the right child is smaller than the other two
