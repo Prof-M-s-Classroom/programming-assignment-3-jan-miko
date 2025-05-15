@@ -29,11 +29,45 @@ public:
         delete[] position;
     }
 
-    void insert(int vertex, int key);
-    int extractMin();
-    void decreaseKey(int vertex, int newKey);
-    bool isInMinHeap(int vertex);
-    bool isEmpty();
+    void insert(int vertex, int key) {
+        // will not be using this method because the assumption is that we will only use the heap for the MST
+        //all vertices are automatically inserted in the constructor and will be updated using the decrease key method
+    }
+
+    int extractMin() {
+        if (size <= 0)
+            return -1; // the heap is empty
+
+        if (size == 1) {
+            size --;
+            return heapArray[0];
+        }
+        // store then delete minimum value
+        int temp = heapArray[0];
+        heapArray[0] = heapArray[size - 1];
+        position[heapArray[size - 1]] = 0;
+        size--;
+
+        // heapify after removal
+        minHeapify(0);
+
+        return temp;
+    }
+    bool decreaseKey(int vertex, int newKey) {
+        if (isInMinHeap(vertex) && (newKey < keyArray[vertex])) {
+            keyArray[vertex] = newKey;
+            minHeapify(0); //maintain minHeap properties
+            return true;
+        }
+        else
+            return false;
+    }
+    bool isInMinHeap(int vertex) {
+        return (heapArray[position[vertex]] == vertex) && !isEmpty();
+    }
+    bool isEmpty() {
+        return size == 0;
+    }
 
 private:
     int* heapArray;        // Heap of vertex indices
