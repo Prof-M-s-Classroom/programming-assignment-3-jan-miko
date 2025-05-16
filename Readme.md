@@ -6,7 +6,7 @@ Jan Miko Bautista
 
 ## Description
 The program creates a graph of n-amount of vertices with weighted edges.
-It then uses Prim's algorithm to create a minumum spanning tree using the edges with lowest weights.
+It then uses Prim's algorithm to create a minimum spanning tree using the edges with lowest weights.
 
 ## Files
 - graph.h / graph.cpp
